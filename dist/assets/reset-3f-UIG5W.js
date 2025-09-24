@@ -1,0 +1,2 @@
+const n=new Map;function r(e,t,s,o){n.has(e)||n.set(e,[]),n.get(e).push({element:t,eventType:s,handler:o}),t.addEventListener(s,o)}function a(e){n.has(e)&&(n.get(e).forEach(({element:s,eventType:o,handler:c})=>{s.removeEventListener(o,c)}),n.delete(e))}function f(){n.forEach((e,t)=>{a(t)})}function i(e,t=[]){window.scroll({behavior:"smooth",left:0,top:0}),document.title=e,t.length&&t.forEach(s=>a(s))}export{i as a,f as b,a as c,r};
+//# sourceMappingURL=reset-3f-UIG5W.js.map
