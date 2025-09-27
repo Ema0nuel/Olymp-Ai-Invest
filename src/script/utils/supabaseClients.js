@@ -37,14 +37,19 @@ export async function signUpUser({
         const expiryTime = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
         // Create profile with OTP
-        const { error: profileError } = await supabase.from("profiles").insert({
+        const { error: profileError } = await supabase.from("profiles").upsert({
             id: authData.user.id,
             email,
             full_name: fullname,
             phone_number: phone,
             country,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
             verification_code: otp,
             verification_expiry: expiryTime,
+        }, {
+            onConflict: 'id',
+            returning: 'minimal'  // Don't return the row
         });
 
         if (profileError) throw profileError;

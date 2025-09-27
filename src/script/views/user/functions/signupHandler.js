@@ -40,43 +40,66 @@ const toastify = ({
 
 
 export async function createTradingAccounts(userId) {
-    // Show loading toast instead of spinner
-    const loadingToast = toastify({
-        text: "Creating your account...",
-        background: "bg-brand-primary/10",
-        icon: "fas fa-spinner fa-spin",
-        duration: 0 // Keep showing until manually closed
-    });
     try {
-
-        // Create demo account
-        const { error: demoError } = await supabase
+        // First check if accounts exist using a single query
+        const { data: existingAccounts, error: checkError } = await supabase
             .from("trading_accounts")
-            .insert({
+            .select("account_type")
+            .eq("user_id", userId);
+
+        if (checkError) {
+            console.error("Error checking existing accounts:", checkError);
+            return false;
+        }
+
+        // Create a set of existing account types
+        const existingTypes = new Set(existingAccounts?.map(acc => acc.account_type) || []);
+
+        // Prepare accounts to be created
+        const accountsToCreate = [];
+
+        // Only add accounts that don't exist
+        if (!existingTypes.has("demo")) {
+            accountsToCreate.push({
                 user_id: userId,
                 account_type: "demo",
-                balance: 100.0, // Default demo balance
+                balance: 100.0,
                 leverage: 100,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
             });
+        }
 
-        if (demoError) throw demoError;
-
-        // Create live account
-        const { error: liveError } = await supabase
-            .from("trading_accounts")
-            .insert({
+        if (!existingTypes.has("live")) {
+            accountsToCreate.push({
                 user_id: userId,
                 account_type: "live",
                 balance: 0.0,
                 leverage: 100,
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString()
             });
+        }
 
-        if (liveError) throw liveError;
-        loadingToast.remove();
+        // If we have accounts to create, do it in one batch
+        if (accountsToCreate.length > 0) {
+            const { error: insertError } = await supabase
+                .from("trading_accounts")
+                .insert(accountsToCreate)
+                .select();
+
+            if (insertError) {
+                console.error("Error creating accounts:", insertError);
+                return false;
+            }
+        }
+
+        // Return true even if no accounts needed to be created
+        // (because existing accounts is still a valid state)
         return true;
+
     } catch (error) {
-        loadingToast.remove();
-        console.error("Error creating trading accounts:", error);
+        console.error("Error managing trading accounts:", error);
         return false;
     }
 }

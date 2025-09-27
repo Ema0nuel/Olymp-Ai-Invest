@@ -13,6 +13,7 @@ import Brands from "../../components/Brands";
 import { renderHomeBanner } from "../../components/home/banner";
 import { initializeStatWidget, renderHomeStat } from "../../components/home/stat";
 import { trackPageVisit } from '../../utils/analtics'
+import { render } from "nprogress";
 
 
 const PORTFOLIOS = [
@@ -51,7 +52,168 @@ const PORTFOLIOS = [
     // Add other portfolios
 ];
 
+// Add this after your existing PORTFOLIOS array
+export const INVESTMENT_PLANS = [
+    {
+        name: 'Starter Plan',
+        minAmount: 300,
+        maxAmount: 2999,
+        duration: '7 days',
+        dailyReturn: 2.5,
+        totalReturn: '117.5%',
+        features: [
+            'Instant Withdrawal',
+            'Smart Contract Integration',
+            '24/7 Support'
+        ],
+        bgGradient: 'from-emerald-500 to-teal-700',
+        accentColor: 'emerald'
+    },
+    {
+        name: 'Advanced Plan',
+        minAmount: 3000,
+        maxAmount: 9999,
+        duration: '14 days',
+        dailyReturn: 3.2,
+        totalReturn: '144.8%',
+        features: [
+            'Priority Withdrawal',
+            'Smart Contract Integration',
+            'Dedicated Account Manager',
+            'Market Analysis Reports'
+        ],
+        bgGradient: 'from-blue-500 to-indigo-700',
+        accentColor: 'blue',
+        popular: true
+    },
+    {
+        name: 'Expert Plan',
+        minAmount: 10000,
+        maxAmount: 49999,
+        duration: '30 days',
+        dailyReturn: 4.0,
+        totalReturn: '220%',
+        features: [
+            'Instant Withdrawal',
+            'Smart Contract Integration',
+            'VIP Account Manager',
+            'Advanced Trading Tools',
+            'Weekly Strategy Calls'
+        ],
+        bgGradient: 'from-violet-500 to-purple-700',
+        accentColor: 'violet'
+    },
+    {
+        name: 'Elite Plan',
+        minAmount: 50000,
+        maxAmount: 1000000,
+        duration: '45 days',
+        dailyReturn: 5.0,
+        totalReturn: '325%',
+        features: [
+            'Instant Withdrawal',
+            'Smart Contract Integration',
+            'Executive Account Manager',
+            'Custom Trading Strategy',
+            'Direct Phone Line',
+            'Monthly Strategy Review'
+        ],
+        bgGradient: 'from-amber-500 to-orange-700',
+        accentColor: 'amber'
+    }
+];
+
 const { html: tradeHtml, pageEvents: tradeEvents } = trade()
+
+export function renderInvestmentPlans() {
+    return /* html */ `
+        <!-- Investment Plans Section -->
+                <section class="py-16 lg:py-24 bg-gradient-to-b from-brand-dark to-black">
+                    <div class="container mx-auto px-4">
+                        <div class="text-center mb-10 lg:mb-16">
+                            <h2 class="text-3xl lg:text-4xl font-bold text-white mb-3">
+                                Investment Plans
+                            </h2>
+                            <p class="text-gray-400 text-base lg:text-lg max-w-2xl mx-auto">
+                                Choose the perfect investment plan tailored to your goals
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                            ${INVESTMENT_PLANS.map(plan => /* html */`
+                                <div class="relative group">
+                                    ${plan.popular ? `
+                                        <div class="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                                            <span class="bg-brand-primary text-black text-xs font-bold px-3 py-1 rounded-full">
+                                                POPULAR
+                                            </span>
+                                        </div>
+                                    ` : ''}
+                                    
+                                    <div class="h-full rounded-xl bg-gradient-to-br ${plan.bgGradient} p-[1px] transition-transform hover:scale-[1.02]">
+                                        <div class="h-full rounded-xl bg-black/90 backdrop-blur-xl p-5 lg:p-6">
+                                            <!-- Header -->
+                                            <div class="mb-4">
+                                                <h3 class="text-xl lg:text-2xl font-bold text-white mb-2">${plan.name}</h3>
+                                                <div class="flex items-baseline gap-1">
+                                                    <span class="text-2xl lg:text-3xl font-bold text-${plan.accentColor}-400">$${plan.minAmount.toLocaleString()}</span>
+                                                    <span class="text-sm text-gray-400">min</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Details -->
+                                            <div class="space-y-4 grid-content-size-dy">
+                                                <!-- Stats Grid -->
+                                                <div class="grid grid-cols-2 gap-2">
+                                                    <div class="p-2.5 rounded-lg bg-white/5 flex flex-col">
+                                                        <span class="text-gray-400 text-[11px] leading-none mb-1">Maximum</span>
+                                                        <span class="text-white text-xs md:text-sm font-medium leading-tight">$${plan.maxAmount.toLocaleString()}</span>
+                                                    </div>
+                                                    <div class="p-2.5 rounded-lg bg-white/5 flex flex-col">
+                                                        <span class="text-gray-400 text-[11px] leading-none mb-1">Duration</span>
+                                                        <span class="text-white text-xs md:text-sm font-medium leading-tight">${plan.duration}</span>
+                                                    </div>
+                                                    <div class="p-2.5 rounded-lg bg-white/5 flex flex-col">
+                                                        <span class="text-gray-400 text-[11px] leading-none mb-1">Daily ROI</span>
+                                                        <span class="text-${plan.accentColor}-400 text-xs md:text-sm font-bold leading-tight">${plan.dailyReturn}%</span>
+                                                    </div>
+                                                    <div class="p-2.5 rounded-lg bg-white/5 flex flex-col">
+                                                        <span class="text-gray-400 text-[11px] leading-none mb-1">Total ROI</span>
+                                                        <span class="text-${plan.accentColor}-400 text-xs md:text-sm font-bold leading-tight">${plan.totalReturn}</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Features List -->
+                                                <div class="space-y-2 pt-2 pb-6">
+                                                    ${plan.features.map(feature => `
+                                                        <div class="flex items-center gap-2 text-sm">
+                                                            <svg class="w-4 h-4 text-${plan.accentColor}-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                                            </svg>
+                                                            <span class="text-gray-300 text-sm">${feature}</span>
+                                                        </div>
+                                                    `).join('')}
+                                                </div>
+
+                                                <!-- Action Button -->
+                                                <a data-nav href="/signup" class="w-full mt-8 py-2 px-4 rounded-lg bg-${plan.accentColor}-500/20 
+                                                        border border-${plan.accentColor}-500/30 text-${plan.accentColor}-400 
+                                                        text-sm font-semibold transition-all hover:bg-${plan.accentColor}-500/30 
+                                                        hover:border-${plan.accentColor}-500/40 focus:outline-none focus:ring-2 
+                                                        focus:ring-${plan.accentColor}-500/40 focus:ring-offset-1 
+                                                        focus:ring-offset-black">
+                                                    Choose Plan
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </section>
+    `
+}
 
 const home = async () => {
     reset('Olymp AI Invest');
@@ -118,6 +280,7 @@ const home = async () => {
             </div>
             <main class="pt-[15px] animate-fade-in-up">
                 ${hero}
+                ${renderInvestmentPlans()}
                 ${statBox}
                 ${tradeHtml}
                 ${consultationHtml}

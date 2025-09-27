@@ -406,3 +406,7 @@ iframe {
   background-size: 300% 300%;
   animation: gradient-move 6s infinite linear;
 }
+
+.grid-content-size-dy {
+  font-size: 14px !important;
+}
