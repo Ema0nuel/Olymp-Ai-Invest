@@ -9,6 +9,7 @@ import { loadPage } from '../../routes/router'
 import BTC from '../../../images/welcome/btc.png'
 import ETH from '../../../images/welcome/eth.png'
 import BNB from '../../../images/welcome/bnb.png'
+import SOL from '../../../images/welcome/sol.png'
 import { trackPageVisit } from '../../utils/analtics'
 
 
@@ -20,7 +21,7 @@ const DEMO_ASSETS = [
         name: 'Bitcoin',
         networks: ['BTC'],
         addresses: {
-            BTC: 'bc1qt4g28u88szcrq2qc53th4wtlkk6w8e25tmf0hu'
+            BTC: 'bc1ql37jxk49j29s0qhvkp8mv8x739uqywx3mvze7u'
         },
         logo_url: BTC,
         min_deposit: 0.001
@@ -29,10 +30,9 @@ const DEMO_ASSETS = [
         id: '123e4567-e89b-12d3-a456-426614174001',
         symbol: 'ETH',
         name: 'Ethereum',
-        networks: ['ERC20', 'XRP'],
+        networks: ['ERC20'],
         addresses: {
-            ERC20: '0x68E7e7E237b69747e0c7a03A272348fC696Ee105',
-            XRP: 'rfKVBsDAnpYGHsBDXQqqAarMjFA86nk4xo'
+            ERC20: '0x5b06694Dc20DC3ADF3b6E5A2Aa060235D1eC03D5',
         },
         logo_url: ETH,
         min_deposit: 0.01
@@ -41,11 +41,9 @@ const DEMO_ASSETS = [
         id: '123e4567-e89b-12d3-a456-426614174002',
         symbol: 'USDT',
         name: 'Tether USD',
-        networks: ['ERC20', 'XRP', 'BSC'],
+        networks: ['USDT'],
         addresses: {
-            ERC20: '0x68E7e7E237b69747e0c7a03A272348fC696Ee105',
-            XRP: 'rfKVBsDAnpYGHsBDXQqqAarMjFA86nk4xo',
-            BSC: '0x68E7e7E237b69747e0c7a03A272348fC696Ee105'
+            USDT: '0x5b06694Dc20DC3ADF3b6E5A2Aa060235D1eC03D5',
         },
         logo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/USDT_Logo.png/2048px-USDT_Logo.png',
         min_deposit: 20
@@ -53,13 +51,24 @@ const DEMO_ASSETS = [
     {
         id: '123e4567-e89b-12d3-a456-426614174003',
         symbol: 'XRP',
-        name: 'XRP USD',
+        name: 'XRP',
         networks: ['XRP'],
         addresses: {
-            XRP: 'rfKVBsDAnpYGHsBDXQqqAarMjFA86nk4xo'
+            XRP: 'rPnbecvK7yVmqmmAdUf2zcPLuqkuq6kkMg'
         },
         logo_url: 'https://img.freepik.com/premium-vector/xrp-crypto-coin-cryptocurrency-isometric-illustration_641602-249.jpg?semt=ais_hybrid&w=740&q=80',
         min_deposit: 1
+    },
+    {
+        id: '123e4567-e89b-12d3-a456-426614174004',
+        symbol: 'SOL',
+        name: 'Solana',
+        networks: ['SOL'],
+        addresses: {
+            SOL: '3TbGt1jPvMPRmpwMYAjTBq4wMHXnty9sFB47M6UZfXKX',
+        },
+        logo_url: SOL,
+        min_deposit: 0.01
     },
 ]
 
