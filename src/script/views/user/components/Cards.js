@@ -93,12 +93,35 @@ const Cards = async () => {
     }
 
     async function fetchCryptoPrices() {
-        const coins = ['BTC', 'ETH', 'BNB', 'SOL']
-        cryptoPrices = coins.map(coin => ({
-            symbol: coin,
-            price: Math.random() * 50000,
-            change: (Math.random() * 10) - 5
-        }))
+        try {
+            const res = await fetch(
+                "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,solana&vs_currencies=usd"
+            );
+            const data = await res.json();
+
+            cryptoPrices = [
+                { symbol: "BTC", price: data.bitcoin?.usd ?? 0, change: 0 },
+                { symbol: "ETH", price: data.ethereum?.usd ?? 0, change: 0 },
+                { symbol: "BNB", price: data.binancecoin?.usd ?? 0, change: 0 },
+                { symbol: "SOL", price: data.solana?.usd ?? 0, change: 0 }
+            ];
+
+            return cryptoPrices;
+        } catch (err) {
+            if (typeof toastify === "function") {
+                toastify({
+                    text: 'Failed to fetch current prices',
+                    background: 'bg-red-500'
+                });
+            }
+            cryptoPrices = [
+                { symbol: "BTC", price: 0, change: 0 },
+                { symbol: "ETH", price: 0, change: 0 },
+                { symbol: "BNB", price: 0, change: 0 },
+                { symbol: "SOL", price: 0, change: 0 }
+            ];
+            return cryptoPrices;
+        }
     }
 
     async function initializeBalance() {
