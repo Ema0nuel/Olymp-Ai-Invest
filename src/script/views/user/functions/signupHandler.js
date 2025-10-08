@@ -140,7 +140,7 @@ export async function signupHandler(formData) {
             .insert({
                 id: authData.user.id,
                 email: formData.email,
-                full_name: formData.fullName || '',
+                full_name: formData.fullname || '',
                 phone_number: formData.phone || '',
                 country: formData.country || '',
                 auth_type: 'email',
