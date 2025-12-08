@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Point search engines to your sitemap
+Sitemap: https://www.olympaiinvest.com/sitemap.xml
+# Optional Host directive (supported by some crawlers)
+Host: www.olympaiinvest.com

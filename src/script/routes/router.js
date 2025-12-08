@@ -281,3 +281,6 @@ window.addEventListener('popstate', async (e) => {
 
     await loadPage(route, ...(e.state?.args || []));
 });
+
+// Export routes for sitemap generation
+export { routes };
