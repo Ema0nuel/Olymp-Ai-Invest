@@ -1,7 +1,23 @@
 User-agent: *
 Allow: /
 
-# Point search engines to your sitemap
+# Block internal or sensitive endpoints (adjust as needed)
+Disallow: /api/
+Disallow: /admin/
+Disallow: /user/
+# If you have auth pages, keep them excluded:
+Disallow: /dashboard/
+Disallow: /profile/
+
+# Prefer explicit Googlebot rule to avoid ambiguity
+User-agent: Googlebot
+Allow: /
+
+# Point search engines (and GSC) to sitemap(s) — ensure these files exist at these exact URLs
 Sitemap: https://www.olympaiinvest.com/sitemap.xml
-# Optional Host directive (supported by some crawlers)
+# If you generate segmented sitemaps, list them as well:
+# Sitemap: https://www.olympaiinvest.com/sitemap-posts.xml
+# Sitemap: https://www.olympaiinvest.com/sitemap-pages.xml
+
+# Optional host directive (ignored by Google but used by some crawlers)
 Host: www.olympaiinvest.com
