@@ -281,7 +281,6 @@ const home = async () => {
             <main class="pt-[15px] animate-fade-in-up">
                 ${hero}
                 <!-- Elfsight All-in-One Reviews | Olymp AI Invest -->
-                <script src="https://elfsightcdn.com/platform.js" async></script>
                 <div class="elfsight-app-4382ee77-9c65-4a3b-ab22-b4f5468d62df" data-elfsight-app-lazy></div>
                 ${renderInvestmentPlans()}
                 ${statBox}
