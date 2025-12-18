@@ -279,6 +279,11 @@ const home = async () => {
                 ${bannerTape}
             </div>
             <main class="pt-[15px] animate-fade-in-up">
+                <!-- TrustBox widget - Review Collector -->
+                <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6943cf301d2da56aaca476f9" data-style-height="52px" data-style-width="100%" data-token="99a44a22-38d9-4caf-adde-1a8501fe5bbb">
+                <a href="https://www.trustpilot.com/review/www.olympaiinvest.com" target="_blank" rel="noopener">Trustpilot</a>
+                </div>
+                <!-- End TrustBox widget -->
                 ${hero}
                 <!-- Elfsight All-in-One Reviews | Olymp AI Invest -->
                 <div class="elfsight-app-4382ee77-9c65-4a3b-ab22-b4f5468d62df" data-elfsight-app-lazy></div>
