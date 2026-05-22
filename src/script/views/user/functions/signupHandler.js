@@ -2,7 +2,6 @@ import supabase from "../../../utils/supabaseClients";
 import { loadPage } from "../../../routes/router";
 import Modal from "../../../components/Modal";
 import Welcome from "../../../../images/assets/blog/621506e9a1183737fff2f2b8_NFT's & Metaverse.png";
-import { sendEmail } from "../../../utils/send-email";
 import { registerWebAuthn, isWebAuthnAvailable } from "../../../utils/webAuthnHelper";
 
 // Toast notification utility
@@ -130,11 +129,7 @@ export async function signupHandler(formData) {
 
         if (authError) throw authError;
 
-        // Generate OTP
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
-
-        // Create profile
+        // Create profile - mark as verified immediately
         const { error: profileError } = await supabase
             .from("profiles")
             .insert({
@@ -144,39 +139,14 @@ export async function signupHandler(formData) {
                 phone_number: formData.phone || '',
                 country: formData.country || '',
                 auth_type: 'email',
-                verification_code: otp,
-                verification_expiry: otpExpiry,
+                is_verified: true,
                 created_at: new Date().toISOString(),
                 updated_at: new Date().toISOString()
             });
 
         if (profileError) throw profileError;
 
-        // Send welcome email with OTP
-        try {
-            await sendEmail({
-                to: formData.email,
-                subject: "Welcome to Olymp AI Invest - Verify Your Email",
-                html: generateWelcomeEmailTemplate(formData.email, otp)
-            });
-        } catch (emailError) {
-            console.error("Email error:", emailError);
-        }
-
         loadingToast.remove();
-
-        // Show OTP verification modal
-        const verificationResult = await showOTPModal(formData.email, otp);
-
-        if (!verificationResult.success) {
-            toastify({
-                text: verificationResult.error || "Verification failed",
-                icon: "fas fa-exclamation-circle",
-                background: "bg-red-800",
-                duration: 3000
-            });
-            return false;
-        }
 
         // Create trading accounts
         const accountsCreated = await createTradingAccounts(authData.user.id);
@@ -237,14 +207,14 @@ export async function signupHandler(formData) {
         await showWelcomeMessage();
 
         toastify({
-            text: "Account created successfully! Redirecting...",
+            text: "Account created successfully! Logging you in...",
             icon: "fas fa-check-circle",
             background: "bg-green-800",
             duration: 3000
         });
 
         await new Promise(resolve => setTimeout(resolve, 2000));
-        await loadPage("login");
+        await loadPage("dashboard");
         return true;
 
     } catch (error) {
