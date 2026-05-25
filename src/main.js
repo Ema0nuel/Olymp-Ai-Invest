@@ -32,12 +32,12 @@ document.addEventListener("click", async (e) => {
         removeCashout();
       }
 
-      // Only load Jivo on non-admin pages
-      if (isAdminPage(page)) {
-        removeJivoChat();
-      } else {
-        loadJivoChat();
-      }
+      // // Only load Jivo on non-admin pages
+      // if (isAdminPage(page)) {
+      //   removeJivoChat();
+      // } else {
+      //   loadJivoChat();
+      // }
     }
     target = target.parentElement;
   }
@@ -72,34 +72,34 @@ window.addEventListener("DOMContentLoaded", async () => {
     removeCashout();
   }
 
-  // Load or remove Jivo depending on whether this is an admin page
-  if (isAdminPage(page)) {
-    removeJivoChat();
-  } else {
-    loadJivoChat();
-  }
+  // // Load or remove Jivo depending on whether this is an admin page
+  // if (isAdminPage(page)) {
+  //   removeJivoChat();
+  // } else {
+  //   loadJivoChat();
+  // }
 });
 
-// Load Jivo unless already loaded
-function loadJivoChat() {
-  if (window.jivo_api || document.getElementById("jivo-script")) return;
-  const script = document.createElement('script');
-  script.id = "jivo-script";
-  script.src = '//code.jivosite.com/widget/eCCc6qKzVU';
-  script.async = true;
-  document.body.appendChild(script);
-}
+// // Load Jivo unless already loaded
+// function loadJivoChat() {
+//   if (window.jivo_api || document.getElementById("jivo-script")) return;
+//   const script = document.createElement('script');
+//   script.id = "jivo-script";
+//   script.src = '//code.jivosite.com/widget/eCCc6qKzVU';
+//   script.async = true;
+//   document.body.appendChild(script);
+// }
 
-// Remove Jivo script and widget
-function removeJivoChat() {
-  // Remove the script
-  const script = document.getElementById("jivo-script");
-  if (script) script.remove();
-  // Remove the widget if already loaded
-  if (window.jivo_api && typeof window.jivo_api.destroy === 'function') {
-    try { window.jivo_api.destroy(); } catch (e) { /* ignore */ }
-  }
-  // Remove widget DOM if present
-  const widget = document.getElementById("jvlabelWrap");
-  if (widget) widget.remove();
-}
+// // Remove Jivo script and widget
+// function removeJivoChat() {
+//   // Remove the script
+//   const script = document.getElementById("jivo-script");
+//   if (script) script.remove();
+//   // Remove the widget if already loaded
+//   if (window.jivo_api && typeof window.jivo_api.destroy === 'function') {
+//     try { window.jivo_api.destroy(); } catch (e) { /* ignore */ }
+//   }
+//   // Remove widget DOM if present
+//   const widget = document.getElementById("jvlabelWrap");
+//   if (widget) widget.remove();
+// }
