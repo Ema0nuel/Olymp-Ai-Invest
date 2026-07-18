@@ -99,7 +99,7 @@ function loadJivoChat() {
 //   if (script) script.remove();
 //   // Remove the widget if already loaded
 //   if (window.jivo_api && typeof window.jivo_api.destroy === 'function') {
-//     try { window.jivo_api.destroy(); } catch (e) { /* ignore */ }
+//     try { window.jivo_api.destroy(); } catch (e) { }
 //   }
 //   // Remove widget DOM if present
 //   const widget = document.getElementById("jvlabelWrap");
