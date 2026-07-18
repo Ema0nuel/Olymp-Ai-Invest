@@ -33,11 +33,11 @@ document.addEventListener("click", async (e) => {
       }
 
       // // Only load Jivo on non-admin pages
-      // if (isAdminPage(page)) {
-      //   removeJivoChat();
-      // } else {
-      //   loadJivoChat();
-      // }
+      if (isAdminPage(page)) {
+        removeJivoChat();
+      } else {
+        loadJivoChat();
+      }
     }
     target = target.parentElement;
   }
@@ -72,23 +72,23 @@ window.addEventListener("DOMContentLoaded", async () => {
     removeCashout();
   }
 
-  // // Load or remove Jivo depending on whether this is an admin page
-  // if (isAdminPage(page)) {
-  //   removeJivoChat();
-  // } else {
-  //   loadJivoChat();
-  // }
+  // Load or remove Jivo depending on whether this is an admin page
+  if (isAdminPage(page)) {
+    removeJivoChat();
+  } else {
+    loadJivoChat();
+  }
 });
 
 // // Load Jivo unless already loaded
-// function loadJivoChat() {
-//   if (window.jivo_api || document.getElementById("jivo-script")) return;
-//   const script = document.createElement('script');
-//   script.id = "jivo-script";
-//   script.src = '//code.jivosite.com/widget/eCCc6qKzVU';
-//   script.async = true;
-//   document.body.appendChild(script);
-// }
+function loadJivoChat() {
+  if (window.jivo_api || document.getElementById("jivo-script")) return;
+  const script = document.createElement('script');
+  script.id = "jivo-script";
+  script.src = '//code.jivosite.com/widget/eCCc6qKzVU';
+  script.async = true;
+  document.body.appendChild(script);
+}
 
 // // Remove Jivo script and widget
 // function removeJivoChat() {
