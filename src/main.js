@@ -33,11 +33,11 @@ document.addEventListener("click", async (e) => {
       }
 
       // // Only load Jivo on non-admin pages
-      if (isAdminPage(page)) {
-        removeJivoChat();
-      } else {
-        loadJivoChat();
-      }
+      // if (isAdminPage(page)) {
+       // removeJivoChat();
+     // } else {
+     //   loadJivoChat();
+    //  }
     }
     target = target.parentElement;
   }
@@ -73,14 +73,16 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 
   // Load or remove Jivo depending on whether this is an admin page
-  if (isAdminPage(page)) {
+ /* if (isAdminPage(page)) {
     removeJivoChat();
   } else {
     loadJivoChat();
   }
+  */
 });
 
 // // Load Jivo unless already loaded
+/*
 function loadJivoChat() {
   if (window.jivo_api || document.getElementById("jivo-script")) return;
   const script = document.createElement('script');
@@ -103,3 +105,4 @@ function loadJivoChat() {
 //   const widget = document.getElementById("jvlabelWrap");
 //   if (widget) widget.remove();
 // }
+*/
